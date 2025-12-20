@@ -5,6 +5,12 @@ The format is based on Keep a Changelog
 and this project adheres to Semantic Versioning.
 
 ---
+## [0.2.1] - 2025-12-20
+### Added
+- Basic rotor stepping (right rotor advances on each keypress)
+- Finalized historical reflector wirings (A, B, C, B-thin, C-thin)
+- Reflector class now supports involution and non-involution types
+
 
 ## [0.2.0] – 2025‑12‑20
 ### Added

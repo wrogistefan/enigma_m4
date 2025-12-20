@@ -1,23 +1,25 @@
 class Reflector:
     """Represents an Enigma reflector (Umkehrwalze)."""
 
-    def __init__(self, wiring: str) -> None:
+    def __init__(self, wiring: str, involution: bool = True) -> None:
         if len(wiring) != 26:
             raise ValueError("Reflector wiring must be 26 characters long.")
 
         self.wiring = wiring.upper()
+        self.involution = involution
 
-        # Validate involution AND no fixed points
-        for i, c in enumerate(self.wiring):
-            j = ord(c) - ord("A")
+        if self.involution:
+            # Validate involution AND no fixed points
+            for i, c in enumerate(self.wiring):
+                j = ord(c) - ord("A")
 
-            # 1. No letter may map to itself
-            if i == j:
-                raise ValueError("Reflector cannot map a letter to itself.")
+                # 1. No letter may map to itself
+                if i == j:
+                    raise ValueError("Reflector cannot map a letter to itself.")
 
-            # 2. Must be symmetric: wiring[wiring[i]] == i
-            if self.wiring[j] != chr(ord("A") + i):
-                raise ValueError("Reflector wiring must be an involution.")
+                # 2. Must be symmetric: wiring[wiring[i]] == i
+                if self.wiring[j] != chr(ord("A") + i):
+                    raise ValueError("Reflector wiring must be an involution.")
 
     @staticmethod
     def _char_to_index(c: str) -> int:
