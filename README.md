@@ -1,6 +1,7 @@
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
 ![Tests](https://img.shields.io/badge/Tests-passing-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
+[![codecov](https://codecov.io/gh/wrogistefan/enigma_m4/branch/main/graph/badge.svg)](https://codecov.io/gh/wrogistefan/enigma_m4)
 
 # Enigma Machine Simulator (M3 → M4)
 
