@@ -7,6 +7,8 @@ class Plugboard:
     The plugboard swaps pairs of letters before and after the rotor encoding.
     Only uppercase A–Z letters are considered. If a letter is not part of any
     configured pair, it passes through unchanged.
+
+    Historically, the plugboard allowed up to 10 cables (10 pairs).
     """
 
     def __init__(self, connections: dict[str, str] | None = None) -> None:
@@ -31,6 +33,11 @@ class Plugboard:
 
     def _add_pair(self, a: str, b: str) -> None:
         """Add a single plugboard pair, validating correctness."""
+
+        # 🔥 HISTORYCZNY LIMIT: maksymalnie 10 par (20 liter)
+        if len(self._mapping) // 2 >= 10:
+            raise ValueError("Plugboard cannot have more than 10 pairs.")
+
         a = a.upper()
         b = b.upper()
 
@@ -64,3 +71,17 @@ class Plugboard:
 
         c = char.upper()
         return self._mapping.get(c, c)
+
+    def __repr__(self) -> str:
+        return f"Plugboard({self._mapping})"
+
+    def pairs(self) -> list[tuple[str, str]]:
+        """Return the list of plugboard pairs (unique, no duplicates)."""
+        seen = set()
+        result = []
+        for a, b in self._mapping.items():
+            if a not in seen and b not in seen:
+                result.append((a, b))
+                seen.add(a)
+                seen.add(b)
+        return result

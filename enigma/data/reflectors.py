@@ -1,0 +1,9 @@
+# Reflectors for Enigma I, M3, and M4
+
+REFLECTOR_A = "EJMZALYXVBWFCRQUONTSPIKHGD"  # Early reflector (rare)
+REFLECTOR_B = "YRUHQSLDPXNGOKMIEBFZCWVJAT"  # Standard Wehrmacht/Luftwaffe
+REFLECTOR_C = "FVPJIAOYEDRZXWGCTKUQSBNMHL"  # Alternative reflector
+
+# Kriegsmarine M4 thin reflectors (used with Beta/Gamma)
+REFLECTOR_B_THIN = "ENKQAUYWJICOPBLMDXZVFTHRGS"
+REFLECTOR_C_THIN = "RDOBJNTKVEHMLFCWZAXGYIPSU"
