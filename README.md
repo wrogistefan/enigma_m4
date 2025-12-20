@@ -1,3 +1,7 @@
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![Tests](https://img.shields.io/badge/Tests-passing-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
 # Enigma Machine Simulator (M3 → M4)
 
 A clean, modular, historically accurate simulation of the German Enigma M3 cipher machine, written in Python.  
@@ -86,7 +90,10 @@ enigma/
  │    ├── test_reflector.py
  │    ├── test_plugboard.py
  │    └── test_machine.py
- └── README.md
+ ├── README.md
+ ├── LICENSE
+ ├── CHANGELOG.md
+ └── project.toml
 ```
 
 ---
@@ -120,4 +127,31 @@ pytest -q
 
 ## License
 
-MIT License.
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## About the Author
+
+**Łukasz Perek** is a Python developer with a strong focus on clean architecture, cryptography, and historically inspired engineering projects.  
+With over a decade of experience in technical support, telecommunications, and workflow optimization, he brings a practical, systems‑oriented mindset to software development.
+
+Currently based in Syracuse, Sicily, Łukasz is transitioning into full‑time software engineering and AI‑driven development.  
+He specializes in:
+
+- Python (OOP, CLI tools, packaging, testing)
+- Clean, modular architecture
+- Cryptographic systems and historical computing
+- CI/CD pipelines (GitHub Actions, linting, coverage)
+- Documentation and developer experience
+
+This Enigma simulator is part of his public portfolio — a demonstration of engineering discipline, historical accuracy, and modern Python design.
+
+If you find this project interesting or useful, feel free to ⭐ the repository.
+
+---
+
+### Connect
+
+[![GitHub](https://img.shields.io/badge/GitHub-Profile-black?logo=github)](https://github.com/wrogistefan)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?logo=linkedin)](https://www.linkedin.com/in/lukaszperek)
