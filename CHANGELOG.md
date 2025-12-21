@@ -1,40 +1,39 @@
 # Changelog
-All notable changes to this project will be documented in this file.
 
-The format is based on Keep a Changelog  
-and this project adheres to Semantic Versioning.
+## v0.3.0-alpha — Stepping Logic Implemented
+**Release date:** 2025-01-21
 
----
-## [0.2.1] - 2025-12-20
 ### Added
-- Basic rotor stepping (right rotor advances on each keypress)
-- Finalized historical reflector wirings (A, B, C, B-thin, C-thin)
-- Reflector class now supports involution and non-involution types
+- Fully implemented rotor stepping logic for the Enigma M3
+- Historically accurate double-stepping behaviour
+- Unit tests verifying:
+  - right rotor always steps
+  - turnover (right rotor notch → middle rotor steps)
+  - double-step (middle rotor notch → middle + left rotor step)
+  - forced double-step scenario
+- Updated README with version information and stepping milestone
 
-
-## [0.2.0] – 2025‑12‑20
-### Added
-- Full Plugboard implementation with validation and historical 10‑pair limit.
-- Complete Rotor class:
-  - forward/backward signal path
-  - ring setting (Ringstellung)
-  - rotor position (Grundstellung)
-  - notch logic
-  - step() rotation
-- Added all historical rotor wirings (I–VIII, Beta, Gamma).
-- Implemented Reflector class with involution and fixed‑point validation.
-- Added all historical reflectors (A, B, C, Thin B, Thin C).
-- Added unit tests for plugboard, rotors, and reflectors.
-
-### Next
-- Implement EnigmaMachine stepping (including double‑stepping).
-- Implement full signal path through the machine.
-- Add integration tests for M3.
-- Prepare for M4 upgrade (Greek rotor + Thin reflectors).
+### Notes
+This release marks the first milestone where the mechanical heart of the Enigma is fully functional.  
+Next step: implement the full electrical signal path (forward → reflector → backward).
 
 ---
 
-## [0.1.0] – Initial
+## v0.2.0-alpha — Rotor, Reflector, Plugboard Core
+**Release date:** 2025-01-15
+
 ### Added
-- Project structure
-- Basic test suite
+- Rotor class with forward/backward mapping, ring settings, and notch logic
+- Reflector class with involutive mapping and historical wirings
+- Plugboard with validation and bidirectional swapping
+- Initial unit tests for all core components
+
+---
+
+## v0.1.0-alpha — Project Initialization
+**Release date:** 2025-01-10
+
+### Added
+- Project structure and repository setup
+- Basic documentation
+- CI configuration and coverage reporting

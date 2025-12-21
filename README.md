@@ -66,10 +66,10 @@ Plugboard
   - A, B, C  
   - Thin B, Thin C (M4)
 
-### EnigmaMachine (coming next)
-- Full stepping logic  
-- Double-stepping  
-- Complete signal path  
+### EnigmaMachine (in progress)
+- **Rotor stepping logic — implemented**
+- **Double-stepping — implemented**
+- Full signal path — coming next
 - M3 first, then M4 upgrade
 
 ---
@@ -111,18 +111,24 @@ pytest -q
 
 ## Roadmap
 
+- Completed (v0.3.0-alpha)
+- Implemented EnigmaMachine stepping logic
+- Implemented historically accurate double-stepping
+- Added stepping unit tests and forced double-step tests
+
 ### Next (M3)
-- Implement EnigmaMachine
-- Implement stepping logic
-- Implement double-stepping
-- Implement full signal path
+- Implement full signal path (forward → reflector → backward)
+- Integrate plugboard into the signal path
 - Add integration tests
+- Add example encrypt/decrypt routines
+
 
 ### After M3
 - Add M4 Greek rotor (Beta/Gamma)
 - Add Thin reflectors
 - Add Kriegsmarine stepping logic
 - Add configuration presets
+- Add historical test vectors (real U-boat messages)
 
 ---
 
