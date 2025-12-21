@@ -1,6 +1,6 @@
 [project]
 name = "enigma-m4"
-version = "0.1.0"
+version = "0.3.0-alpha"
 description = "A modern, fully tested Enigma machine simulator in Python."
 authors = [
     { name = "Łukasz Perek" }
