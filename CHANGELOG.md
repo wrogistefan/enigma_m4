@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.4.0] — 2025-12-21
+### Added
+- Full support for the Kriegsmarine Enigma M4 machine.
+- Greek rotors (Beta, Gamma) with correct non-rotating behavior.
+- Thin reflectors (Thin B, Thin C) with historically accurate wiring.
+- Complete M4 stepping logic (right/middle/left rotors only).
+- Historical, flexible plugboard supporting:
+  - dict format: {"A": "B"}
+  - list of pairs: [("A", "B")]
+  - Kriegsmarine format: "PO ML IU KZ"
+  - dash format: "A-B C-D"
+- Comprehensive M4 integration test suite:
+  - Beta + Thin B canonical test
+  - Gamma + Thin C canonical test
+  - reversibility tests
+  - ring-setting tests
+  - plugboard tests
+  - Kriegsmarine-style configuration test
+
+### Improved
+- Rotor stepping logic unified for M3 and M4.
+- Code clarity and historical accuracy across core modules.
+- Test suite stability and coverage.
+
+### Fixed
+- Import issues and indentation errors in rotor and plugboard modules.
+- Incorrect assumptions in earlier M4 tests.
+
+
 ## v0.3.0-alpha — Stepping Logic Implemented
 **Release date:** 2025-01-21
 

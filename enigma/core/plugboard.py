@@ -4,37 +4,74 @@ from __future__ import annotations
 class Plugboard:
     """Represents the Enigma plugboard (Steckerbrett).
 
-    The plugboard swaps pairs of letters before and after the rotor encoding.
-    Only uppercase A–Z letters are considered. If a letter is not part of any
-    configured pair, it passes through unchanged.
-
-    Historically, the plugboard allowed up to 10 cables (10 pairs).
+    Fully historical and flexible:
+    - Accepts dict: {"A": "B", "C": "D"}
+    - Accepts list of pairs: [("A", "B"), ("C", "D")]
+    - Accepts Kriegsmarine string: "PO ML IU KZ"
+    - Accepts dash format: "A-B C-D"
+    - Accepts compact format: "AB CD EF"
     """
 
-    def __init__(self, connections: dict[str, str] | None = None) -> None:
-        """
-        Initialize the plugboard with optional letter-pair connections.
-
-        Parameters
-        ----------
-        connections : dict[str, str] | None
-            A dictionary mapping letters to letters, e.g. {"A": "V"}.
-            If only one direction is provided, the reverse mapping is added
-            automatically. All letters must be unique across all pairs.
-        """
+    def __init__(self, connections=None) -> None:
         self._mapping: dict[str, str] = {}
-        if connections:
-            self._initialize_connections(connections)
 
+        if connections:
+            normalized = self._normalize_connections(connections)
+            self._initialize_connections(normalized)
+
+    # ----------------------------------------------------------------------
+    # NORMALIZATION LAYER
+    # ----------------------------------------------------------------------
+    def _normalize_connections(self, connections) -> dict[str, str]:
+        """Normalize input into a dict[str, str]."""
+
+        # Already a dict
+        if isinstance(connections, dict):
+            return {a.upper(): b.upper() for a, b in connections.items()}
+
+        # List of pairs
+        if isinstance(connections, list):
+            result = {}
+            for a, b in connections:
+                result[a.upper()] = b.upper()
+            return result
+
+        # String formats
+        if isinstance(connections, str):
+            text = connections.strip().upper()
+
+            # Format: "A-B C-D"
+            if "-" in text:
+                pairs = text.split()
+                result = {}
+                for p in pairs:
+                    a, b = p.split("-")
+                    result[a] = b
+                return result
+
+            # Format: "PO ML IU KZ"
+            tokens = text.split()
+            result = {}
+            for token in tokens:
+                if len(token) != 2:
+                    raise ValueError(f"Invalid plugboard token: {token!r}")
+                a, b = token[0], token[1]
+                result[a] = b
+            return result
+
+        raise TypeError("Plugboard connections must be dict, list, or string.")
+
+    # ----------------------------------------------------------------------
+    # INTERNAL VALIDATION
+    # ----------------------------------------------------------------------
     def _initialize_connections(self, connections: dict[str, str]) -> None:
-        """Validate and register all plugboard connections."""
         for a, b in connections.items():
             self._add_pair(a, b)
 
     def _add_pair(self, a: str, b: str) -> None:
         """Add a single plugboard pair, validating correctness."""
 
-        # 🔥 HISTORYCZNY LIMIT: maksymalnie 10 par (20 liter)
+        # Historical limit: max 10 pairs
         if len(self._mapping) // 2 >= 10:
             raise ValueError("Plugboard cannot have more than 10 pairs.")
 
@@ -53,30 +90,23 @@ class Plugboard:
         self._mapping[a] = b
         self._mapping[b] = a
 
+    # ----------------------------------------------------------------------
+    # OPERATION
+    # ----------------------------------------------------------------------
     def swap(self, char: str) -> str:
-        """Return the letter after passing through the plugboard.
-
-        Parameters
-        ----------
-        char : str
-            A single alphabetic character.
-
-        Returns
-        -------
-        str
-            The swapped character if connected, otherwise the original.
-        """
         if not char.isalpha() or len(char) != 1:
             return char
 
         c = char.upper()
         return self._mapping.get(c, c)
 
+    # ----------------------------------------------------------------------
+    # UTILITIES
+    # ----------------------------------------------------------------------
     def __repr__(self) -> str:
         return f"Plugboard({self._mapping})"
 
     def pairs(self) -> list[tuple[str, str]]:
-        """Return the list of plugboard pairs (unique, no duplicates)."""
         seen = set()
         result = []
         for a, b in self._mapping.items():

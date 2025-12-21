@@ -3,78 +3,101 @@
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 [![codecov](https://codecov.io/gh/wrogistefan/enigma_m4/branch/main/graph/badge.svg)](https://codecov.io/gh/wrogistefan/enigma_m4)
 
-# Enigma Machine Simulator (M3 → M4)
+# 🔐 Enigma Machine Simulator (M3 → M4)
 
-A clean, modular, historically accurate simulation of the German Enigma M3 cipher machine, written in Python.  
-The project focuses on correctness, mechanical fidelity, and modern software architecture.  
-It is designed to evolve naturally into a full M4 Kriegsmarine simulator.
+A clean, modular, historically accurate simulation of the German **Enigma M3** and **Kriegsmarine M4** cipher machines — implemented in modern Python, with full test coverage and historically faithful mechanics.
 
----
+This project emphasizes:
 
-## Project Goals
+- correctness  
+- mechanical fidelity  
+- clean architecture  
+- testability  
+- extensibility  
 
-- Faithfully reproduce the electrical and mechanical logic of the Enigma M3
-- Preserve historical behaviour:
-  - rotor stepping
-  - double-stepping
-  - ring settings (Ringstellung)
-  - rotor positions (Grundstellung)
-  - plugboard (Steckerbrett)
-  - reflector involution
-- Provide a clean, testable, extensible architecture
-- Serve as a high-quality portfolio project demonstrating engineering skill
+It is both a **learning tool** and a **professional portfolio project** demonstrating engineering discipline and historical accuracy.
 
 ---
 
-## Architecture Overview
+# ✨ Features
+
+### 🧠 Core Capabilities
+- Full **M3** support (rotors I–VIII, reflectors A/B/C)
+- Full **M4** support (III–II–I + Greek rotor)
+- Greek rotors: **Beta**, **Gamma**
+- Thin reflectors: **Thin B**, **Thin C**
+- Historically accurate **stepping** and **double‑stepping**
+- Ring settings (Ringstellung)
+- Rotor positions (Grundstellung)
+- Plugboard (Steckerbrett) with validation
+- Full reversibility (Enigma property)
+
+### 🔌 Historical Plugboard
+Supports all historically used formats:
+
+```python
+{"A": "B"}                     # dict
+[("A", "B"), ("C", "D")]       # list of pairs
+"PO ML IU KZ"                  # Kriegsmarine format
+"A-B C-D"                      # dash format
+```
+
+Up to **10 pairs**, matching real Enigma constraints.
+
+---
+
+# 🧩 Architecture Overview
 
 The machine is composed of independent, testable components:
 
 ```
 Plugboard
    ↓
-Right Rotor → Middle Rotor → Left Rotor
-   ↓             ↓              ↓
-            Reflector
-   ↑             ↑              ↑
-Right Rotor ← Middle Rotor ← Left Rotor
+Right Rotor → Middle Rotor → Left Rotor → Greek Rotor (M4)
+   ↓             ↓              ↓             ↓
+                     Reflector
+   ↑             ↑              ↑             ↑
+Right Rotor ← Middle Rotor ← Left Rotor ← Greek Rotor
    ↑
 Plugboard
 ```
 
-### Plugboard
+### 🔧 Components
+
+#### 🔌 Plugboard
 - Bidirectional letter swapping  
 - Full validation  
-- Historical 10-pair limit  
+- Historical 10‑pair limit  
 - API: `swap(char)`
 
-### Rotors
-- Forward and backward signal path  
+#### ⚙ Rotors
+- Forward & backward signal path  
 - Ring setting  
 - Rotor position  
 - Notch logic  
 - `step()` rotation  
-- Historical wirings included:
+- Includes:
   - I, II, III, IV, V  
   - VI, VII, VIII (Kriegsmarine)  
   - Beta, Gamma (M4 static rotors)
 
-### Reflectors
+#### 🪞 Reflectors
 - Involutive mapping  
 - No fixed points  
-- Historical reflectors:
+- Includes:
   - A, B, C  
   - Thin B, Thin C (M4)
 
-### EnigmaMachine (in progress)
-- **Rotor stepping logic — implemented**
-- **Double-stepping — implemented**
-- Full signal path — coming next
-- M3 first, then M4 upgrade
+#### 🖥 EnigmaMachine
+- Correct stepping logic (M3 + M4)
+- Double‑stepping implemented
+- Full signal path implemented
+- Plugboard integration
+- Reversible encryption
 
 ---
 
-## Project Structure
+# 📁 Project Structure
 
 ```
 enigma/
@@ -90,7 +113,9 @@ enigma/
  │    ├── test_rotor.py
  │    ├── test_reflector.py
  │    ├── test_plugboard.py
- │    └── test_machine.py
+ │    ├── test_integration.py
+ │    ├── test_integration_m4.py
+ │    └── test_integration_m4_historical.py
  ├── README.md
  ├── LICENSE
  ├── CHANGELOG.md
@@ -99,7 +124,7 @@ enigma/
 
 ---
 
-## Testing
+# 🧪 Testing
 
 Run all tests:
 
@@ -107,50 +132,60 @@ Run all tests:
 pytest -q
 ```
 
----
+The test suite includes:
 
-## Roadmap
-
-- Completed (v0.3.0-alpha)
-- Implemented EnigmaMachine stepping logic
-- Implemented historically accurate double-stepping
-- Added stepping unit tests and forced double-step tests
-
-### Next (M3)
-- Implement full signal path (forward → reflector → backward)
-- Integrate plugboard into the signal path
-- Add integration tests
-- Add example encrypt/decrypt routines
-
-
-### After M3
-- Add M4 Greek rotor (Beta/Gamma)
-- Add Thin reflectors
-- Add Kriegsmarine stepping logic
-- Add configuration presets
-- Add historical test vectors (real U-boat messages)
+- unit tests for rotors, reflectors, plugboard  
+- M3 integration tests  
+- M4 integration tests  
+- historical canonical tests:
+  - Beta + Thin B → A → **B**
+  - Gamma + Thin C → A → **P**
+- reversibility tests  
+- ring setting tests  
+- plugboard tests  
+- Kriegsmarine‑style configuration tests  
 
 ---
 
-## License
+# 🗺 Roadmap
+
+### ✅ Completed (v0.4.0)
+- Full M3 implementation  
+- Full M4 implementation  
+- Greek rotors (Beta/Gamma)  
+- Thin reflectors (Thin B/C)  
+- Historical plugboard formats  
+- Full stepping logic  
+- Comprehensive test suite  
+
+### 🔜 Next
+- Add historical daily key sheets  
+- Add real U‑boat message examples  
+- Add CLI interface  
+- Add web demo  
+- Add visualization of rotor stepping  
+
+---
+
+# 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-## About the Author
+# 👤 About the Author
 
-**Łukasz Perek** is a Python developer with a strong focus on clean architecture, cryptography, and historically inspired engineering projects.  
-With over a decade of experience in technical support, telecommunications, and workflow optimization, he brings a practical, systems‑oriented mindset to software development.
+**Łukasz Perek** — Python developer focused on clean architecture, cryptography, and historically inspired engineering.
 
-Currently based in Syracuse, Sicily, Łukasz is transitioning into full‑time software engineering and AI‑driven development.  
-He specializes in:
+Based in **Syracuse, Sicily**, transitioning into full‑time software engineering and AI‑driven development.
+
+Specializes in:
 
 - Python (OOP, CLI tools, packaging, testing)
 - Clean, modular architecture
-- Cryptographic systems and historical computing
-- CI/CD pipelines (GitHub Actions, linting, coverage)
-- Documentation and developer experience
+- Cryptographic systems & historical computing
+- CI/CD (GitHub Actions, linting, coverage)
+- Documentation & developer experience
 
 This Enigma simulator is part of his public portfolio — a demonstration of engineering discipline, historical accuracy, and modern Python design.
 
@@ -158,7 +193,7 @@ If you find this project interesting or useful, feel free to ⭐ the repository.
 
 ---
 
-### Connect
+# 🔗 Connect
 
 [![GitHub](https://img.shields.io/badge/GitHub-Profile-black?logo=github)](https://github.com/wrogistefan)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?logo=linkedin)](https://www.linkedin.com/in/lukaszperek)

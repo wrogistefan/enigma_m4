@@ -10,7 +10,7 @@ class Rotor:
             raise ValueError("Rotor wiring must be 26 characters long.")
 
         self.wiring = wiring.upper()
-        self.notch = notch.upper()
+        self.notch = notch.upper() if notch is not None else None
         self.ring_setting = ring_setting
         self.position = position.upper()
 
@@ -59,9 +59,13 @@ class Rotor:
         """Advance the rotor by one position and return True if it is now at its notch."""
         index = (self._char_to_index(self.position) + 1) % 26
         self.position = self._index_to_char(index)
+
+        if self.notch is None:
+            return False
+
         return self.position == self.notch
 
-
     def at_notch(self) -> bool:
-        """Return True if the rotor is currently at its notch position."""
+        if self.notch is None:
+            return False
         return self.position == self.notch
