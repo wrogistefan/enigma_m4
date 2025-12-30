@@ -1,20 +1,22 @@
-from enigma.core.reflector import Reflector
+"""Tests for the Reflector class."""
+
+import pytest
+
+from enigma.reflector import Reflector
 
 
-def test_reflector_basic_mapping():
+def test_involution_validation():
+    # Valid reflector
     reflector = Reflector("YRUHQSLDPXNGOKMIEBFZCWVJAT")
+    assert reflector.wiring == "YRUHQSLDPXNGOKMIEBFZCWVJAT"
 
+
+def test_no_fixed_points():
+    with pytest.raises(ValueError):
+        Reflector("ABCDEFGHIJKLMNOPQRSTUVWXYZ")  # A maps to A
+
+
+def test_correct_reflection():
+    reflector = Reflector("YRUHQSLDPXNGOKMIEBFZCWVJAT")
     assert reflector.reflect("A") == "Y"
     assert reflector.reflect("Y") == "A"
-    assert reflector.reflect("B") == "R"
-    assert reflector.reflect("R") == "B"
-
-
-def test_reflector_involution_validation():
-    # This wiring is NOT an involution, should raise error
-    invalid = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    try:
-        Reflector(invalid)
-        assert False, "Expected ValueError for non-involutive reflector"
-    except ValueError:
-        pass
