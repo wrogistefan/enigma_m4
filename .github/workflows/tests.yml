@@ -23,23 +23,33 @@ jobs:
 
       - name: Install dependencies
         run: |
+          cd enigma_m4
           pip install -e .
           pip install ruff mypy pytest pytest-cov safety pre-commit
 
       - name: Lint with ruff
-        run: ruff check src/
+        run: |
+          cd enigma_m4
+          ruff check src/
 
       - name: Type check with mypy
-        run: mypy src/
+        run: |
+          cd enigma_m4
+          mypy src/
 
       - name: Security check with safety
-        run: safety check
+        run: |
+          cd enigma_m4
+          safety check
 
       - name: Run pre-commit hooks
-        run: pre-commit run --all-files
+        run: |
+          cd enigma_m4
+          pre-commit run --all-files
 
       - name: Run tests with coverage
         run: |
+          cd enigma_m4
           pytest --cov=src --cov-report=xml
 
       - name: Upload coverage to Codecov
@@ -65,7 +75,9 @@ jobs:
         run: pip install build
 
       - name: Build package
-        run: python -m build
+        run: |
+          cd enigma_m4
+          python -m build
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
