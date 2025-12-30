@@ -1,0 +1,95 @@
+# Enigma M4 Simulator
+
+## Project Overview
+
+Historically accurate Enigma M3/M4 simulator in modern Python.
+
+## Historical Accuracy
+
+- Full M3 and M4 support
+- Authentic rotor stepping and double-stepping
+- Kriegsmarine plugboard formats
+- No compromises on mechanical fidelity
+
+## Installation
+
+```bash
+pip install .
+```
+
+## Quick Start
+
+```python
+from enigma import EnigmaMachine, Rotor, Reflector, Plugboard
+
+# Create components
+rotors = [Rotor.I, Rotor.II, Rotor.III]
+reflector = Reflector.B
+plugboard = Plugboard([("A", "B")])
+
+# Build machine
+machine = EnigmaMachine(rotors, reflector, plugboard)
+
+# Encrypt
+ciphertext = machine.encode("HELLO")
+```
+
+## Rotor/Reflector Tables
+
+### Rotors
+- I: EKMFLGDQVZNTOWYHXUSPAIBRCJ (Q)
+- II: AJDKSIRUXBLHWTMCQGZNPYFVOE (E)
+- III: BDFHJLCPRTXVZNYEIWGAKMUSQO (V)
+- IV: ESOVPZJAYQUIRHXLNFTGKDCMWB (J)
+- V: VZBRGITYUPSDNHLXAWMJQOFECK (Z)
+- VI: JPGVOUMFYQBENHZRDKASXLICTW (ZM)
+- VII: NZJHGRCXMYSWBOUFAIVLPEKQDT (ZM)
+- VIII: FKQHTLXOCBJSPDZRAMEWNIUYGV (ZM)
+- Beta: LEYJVCNIXWPBQMDRTAKZGFUHOS
+- Gamma: FSOKANUERHMBTIYCWLQPZXVGJD
+
+### Reflectors
+- A: EJMZALYXVBWFCRQUONTSPIKHGD
+- B: YRUHQSLDPXNGOKMIEBFZCWVJAT
+- C: FVPJIAOYEDRZXWGCTKUQSBNMHL
+- Thin B: ENKQAUYWJICOPBLMDXZVFTHRGS
+- Thin C: RDOBJNTKVEHMLFCWZAXGYIPSUQ
+
+## Design Goals
+
+- Type hints everywhere
+- No side effects
+- No prints
+- No globals
+- No top-level logic
+- Clean, modular architecture
+- Full test coverage
+
+## Architecture Overview
+
+```
+src/enigma/
+├── __init__.py      # Public API
+├── machine.py       # EnigmaMachine class
+├── rotor.py         # Rotor class
+├── plugboard.py     # Plugboard class
+├── reflector.py     # Reflector class
+├── rotors.py        # Rotor definitions
+└── reflectors.py    # Reflector definitions
+```
+
+## CLI Usage
+
+CLI interface (to be implemented).
+
+## Roadmap
+
+0.5.0 — premium refactoring and tooling
+0.6.0 — CLI implementation
+0.7.0 — cracking mode
+0.8.0 — historical presets
+1.0.0 — stable API
+
+## License
+
+MIT License
