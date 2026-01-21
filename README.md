@@ -100,26 +100,39 @@ Plugboard
 # 📁 Project Structure
 
 ```
-enigma/
- ├── core/
- │    ├── rotor.py
- │    ├── reflector.py
- │    ├── plugboard.py
- │    └── machine.py
- ├── data/
- │    ├── rotors.py
- │    └── reflectors.py
- ├── tests/
- │    ├── test_rotor.py
- │    ├── test_reflector.py
- │    ├── test_plugboard.py
- │    ├── test_integration.py
- │    ├── test_integration_m4.py
- │    └── test_integration_m4_historical.py
- ├── README.md
- ├── LICENSE
- ├── CHANGELOG.md
- └── project.toml
+enigma_m4/
+├── pyproject.toml
+├── README.md
+├── LICENSE
+├── src/
+│   └── enigma/
+│       ├── __init__.py
+│       ├── core/
+│       │   ├── rotor.py
+│       │   ├── reflector.py
+│       │   ├── plugboard.py
+│       │   └── machine.py
+│       ├── data/
+│       │   ├── rotors.py
+│       │   └── reflectors.py
+│       └── utils/
+│           ├── cli/
+│           │   ├── __init__.py
+│           │   └── main.py
+│           └── gui/
+│               ├── __init__.py
+│               └── app.py
+└── tests/
+    ├── test_rotor.py
+    ├── test_reflector.py
+    ├── test_plugboard.py
+    ├── test_machine.py
+    ├── test_rotors.py
+    ├── test_reflectors.py
+    ├── test_integration.py
+    ├── test_integration_m4.py
+    ├── test_integration_m4_historical.py
+    └── __init__.py
 ```
 
 ---
