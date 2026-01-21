@@ -1,14 +1,9 @@
-import pytest
-
 from enigma.core.rotor import Rotor
 from enigma.core.reflector import Reflector
 from enigma.core.plugboard import Plugboard
 from enigma.core.machine import EnigmaMachine
 
-from enigma.data.rotors import (
-    ROTOR_I, ROTOR_II, ROTOR_III,
-    ROTOR_BETA, ROTOR_GAMMA
-)
+from enigma.data.rotors import ROTOR_I, ROTOR_II, ROTOR_III, ROTOR_BETA, ROTOR_GAMMA
 from enigma.data.reflectors import REFLECTOR_B_THIN, REFLECTOR_C_THIN
 
 
@@ -44,12 +39,12 @@ def make_m4(
 
     r = Rotor(r_wiring, notch=r_notch, ring_setting=rings[0], position=positions[0])
     m = Rotor(m_wiring, notch=m_notch, ring_setting=rings[1], position=positions[1])
-    l = Rotor(l_wiring, notch=l_notch, ring_setting=rings[2], position=positions[2])
+    left = Rotor(l_wiring, notch=l_notch, ring_setting=rings[2], position=positions[2])
 
     reflector_obj = Reflector(reflector)
     plugboard_obj = Plugboard(plugboard)
 
-    return EnigmaMachine([r, m, l, greek_rotor], reflector_obj, plugboard_obj)
+    return EnigmaMachine([r, m, left, greek_rotor], reflector_obj, plugboard_obj)
 
 
 # ---------------------------------------------------------

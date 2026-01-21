@@ -9,13 +9,58 @@ A clean, modular, historically accurate simulation of the German **Enigma M3** a
 
 This project emphasizes:
 
-- correctness  
-- mechanical fidelity  
-- clean architecture  
-- testability  
-- extensibility  
+- correctness
+- mechanical fidelity
+- clean architecture
+- testability
+- extensibility
 
 It is both a **learning tool** and a **professional portfolio project** demonstrating engineering discipline and historical accuracy.
+
+## 📚 Documentation
+
+- **[User Manual](docs/USER_MANUAL.md)** - Complete guide for using the simulator
+- **[API Reference](docs/API_REFERENCE.md)** - Detailed API documentation
+
+## 🚀 Quick Start
+
+```python
+from enigma.core.machine import EnigmaMachine
+from enigma.core.rotor import Rotor
+from enigma.core.reflector import Reflector
+from enigma.core.plugboard import Plugboard
+from enigma.data.rotors import ROTOR_I, ROTOR_II, ROTOR_III
+from enigma.data.reflectors import REFLECTOR_B
+
+# Create components
+rotors = [
+    Rotor(*ROTOR_I, position="A"),
+    Rotor(*ROTOR_II, position="A"),
+    Rotor(*ROTOR_III, position="A")
+]
+reflector = Reflector(REFLECTOR_B)
+plugboard = Plugboard()
+
+# Create machine and encrypt
+machine = EnigmaMachine(rotors, reflector, plugboard)
+encrypted = machine.encode_letter("H")
+```
+
+## 📦 Installation
+
+Install from PyPI:
+
+```bash
+pip install enigma-m4
+```
+
+Or install from source:
+
+```bash
+git clone https://github.com/wrogistefan/enigma_m4.git
+cd enigma_m4
+pip install -e .
+```
 
 ---
 
@@ -104,18 +149,24 @@ enigma_m4/
 ├── pyproject.toml
 ├── README.md
 ├── LICENSE
+├── docs/
+│   ├── USER_MANUAL.md
+│   └── API_REFERENCE.md
 ├── src/
 │   └── enigma/
 │       ├── __init__.py
 │       ├── core/
+│       │   ├── __init__.py
 │       │   ├── rotor.py
 │       │   ├── reflector.py
 │       │   ├── plugboard.py
 │       │   └── machine.py
 │       ├── data/
+│       │   ├── __init__.py
 │       │   ├── rotors.py
 │       │   └── reflectors.py
 │       └── utils/
+│           ├── __init__.py
 │           ├── cli/
 │           │   ├── __init__.py
 │           │   └── main.py
@@ -123,6 +174,7 @@ enigma_m4/
 │               ├── __init__.py
 │               └── app.py
 └── tests/
+    ├── __init__.py
     ├── test_rotor.py
     ├── test_reflector.py
     ├── test_plugboard.py
@@ -132,8 +184,17 @@ enigma_m4/
     ├── test_integration.py
     ├── test_integration_m4.py
     ├── test_integration_m4_historical.py
-    └── __init__.py
+    └── test_plugboard.py
 ```
+
+---
+
+# 📖 Documentation
+
+For detailed usage instructions and API reference:
+
+- **[📋 User Manual](docs/USER_MANUAL.md)** - Complete guide including installation, configuration, and examples
+- **[🔧 API Reference](docs/API_REFERENCE.md)** - Detailed documentation of all classes and methods
 
 ---
 
