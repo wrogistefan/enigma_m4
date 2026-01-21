@@ -6,14 +6,14 @@ class EnigmaMachine:
 
     def step(self):
         """
-            Step rotors.
-            M3: rotors = [r, m, l]
-            M4: rotors = [r, m, l, greek]  (greek does NOT rotate)
-            Implements authentic Enigma stepping rules.
-    """
+        Step rotors.
+        M3: rotors = [r, m, l]
+        M4: rotors = [r, m, l, greek]  (greek does NOT rotate)
+        Implements authentic Enigma stepping rules.
+        """
 
         # Always extract only the first 3 rotors for stepping
-        r, m, l = self.rotors[:3]
+        r, m, left = self.rotors[:3]
 
         right_at_notch = r.at_notch()
         middle_at_notch = m.at_notch()
@@ -21,7 +21,7 @@ class EnigmaMachine:
         # Double-step: middle steps if it is at its own notch
         if middle_at_notch:
             m.step()
-            l.step()
+            left.step()
 
         # Normal turnover: middle steps if right is at its notch
         if right_at_notch:
@@ -29,8 +29,6 @@ class EnigmaMachine:
 
         # Right rotor always steps
         r.step()
-
-
 
     def encode_letter(self, char: str) -> str:
         # 1. Step rotors before encoding

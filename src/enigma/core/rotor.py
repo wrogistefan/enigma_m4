@@ -1,11 +1,12 @@
 from __future__ import annotations
-from string import ascii_uppercase
 
 
 class Rotor:
     """Represents a single Enigma rotor."""
 
-    def __init__(self, wiring: str, notch: str, ring_setting: int = 0, position: str = "A") -> None:
+    def __init__(
+        self, wiring: str, notch: str, ring_setting: int = 0, position: str = "A"
+    ) -> None:
         if len(wiring) != 26:
             raise ValueError("Rotor wiring must be 26 characters long.")
 

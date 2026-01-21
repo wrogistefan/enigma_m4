@@ -1,5 +1,3 @@
-import pytest
-
 from enigma.core.rotor import Rotor
 from enigma.core.reflector import Reflector
 from enigma.core.plugboard import Plugboard
@@ -17,12 +15,12 @@ def make_machine():
 
     r = Rotor(r_wiring, notch=r_notch, ring_setting=0, position="A")
     m = Rotor(m_wiring, notch=m_notch, ring_setting=0, position="A")
-    l = Rotor(l_wiring, notch=l_notch, ring_setting=0, position="A")
+    left = Rotor(l_wiring, notch=l_notch, ring_setting=0, position="A")
 
     reflector = Reflector(REFLECTOR_B)
     plugboard = Plugboard({})  # no swaps
 
-    return EnigmaMachine([r, m, l], reflector, plugboard)
+    return EnigmaMachine([r, m, left], reflector, plugboard)
 
 
 # ---------------------------------------------------------
@@ -43,8 +41,8 @@ def test_reversibility_single_letter():
     machine1 = make_machine()
     machine2 = make_machine()
 
-    c = machine1.encode_letter("A")   # encrypt
-    p = machine2.encode_letter(c)     # decrypt = encrypt again
+    c = machine1.encode_letter("A")  # encrypt
+    p = machine2.encode_letter(c)  # decrypt = encrypt again
 
     assert p == "A"
 

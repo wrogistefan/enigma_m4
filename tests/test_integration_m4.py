@@ -1,15 +1,10 @@
-import pytest
-
 from enigma.core.rotor import Rotor
 from enigma.core.reflector import Reflector
 from enigma.core.plugboard import Plugboard
 from enigma.core.machine import EnigmaMachine
 
-from enigma.data.rotors import (
-    ROTOR_I, ROTOR_II, ROTOR_III,
-    ROTOR_BETA, ROTOR_GAMMA
-)
-from enigma.data.reflectors import REFLECTOR_B_THIN, REFLECTOR_C_THIN
+from enigma.data.rotors import ROTOR_I, ROTOR_II, ROTOR_III, ROTOR_BETA
+from enigma.data.reflectors import REFLECTOR_B_THIN
 
 
 def make_m4_machine(
@@ -17,7 +12,7 @@ def make_m4_machine(
     reflector_wiring=REFLECTOR_B_THIN,
     positions=("A", "A", "A", "A"),
     rings=(0, 0, 0, 0),
-    plugboard_pairs=None
+    plugboard_pairs=None,
 ):
     """
     Build an M4 machine:
@@ -29,7 +24,9 @@ def make_m4_machine(
 
     # Greek rotor (Beta or Gamma) — does NOT rotate
     greek_wiring, _ = greek_rotor
-    greek = Rotor(greek_wiring, notch=None, ring_setting=rings[3], position=positions[3])
+    greek = Rotor(
+        greek_wiring, notch=None, ring_setting=rings[3], position=positions[3]
+    )
 
     # Standard rotors (III, II, I) — historical M4 order
     r_wiring, r_notch = ROTOR_III
@@ -38,13 +35,13 @@ def make_m4_machine(
 
     r = Rotor(r_wiring, notch=r_notch, ring_setting=rings[0], position=positions[0])
     m = Rotor(m_wiring, notch=m_notch, ring_setting=rings[1], position=positions[1])
-    l = Rotor(l_wiring, notch=l_notch, ring_setting=rings[2], position=positions[2])
+    left = Rotor(l_wiring, notch=l_notch, ring_setting=rings[2], position=positions[2])
 
     reflector = Reflector(reflector_wiring)
     plugboard = Plugboard(plugboard_pairs)
 
     # Order: right, middle, left, greek
-    return EnigmaMachine([r, m, l, greek], reflector, plugboard)
+    return EnigmaMachine([r, m, left, greek], reflector, plugboard)
 
 
 # ---------------------------------------------------------
@@ -87,12 +84,11 @@ def test_m4_historical_known_value():
         reflector_wiring=REFLECTOR_B_THIN,
         positions=("A", "A", "A", "A"),
         rings=(0, 0, 0, 0),
-        plugboard_pairs={}
+        plugboard_pairs={},
     )
 
     out = machine.encode_letter("A")
     assert out == "B"
-
 
 
 # ---------------------------------------------------------

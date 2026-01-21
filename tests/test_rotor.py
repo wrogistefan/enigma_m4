@@ -18,7 +18,6 @@ def test_rotor_forward_basic_mapping_without_offset():
     assert rotor.encode_forward("B") == "K"
     # C (2) -> M
     assert rotor.encode_forward("C") == "M"
-    
 
 
 def test_rotor_forward_with_position_offset():
@@ -90,3 +89,35 @@ def test_rotor_step_notch_trigger():
     # P -> Q, so notch should trigger
     assert rotor.step() is True
     assert rotor.position == "Q"
+
+
+def test_rotor_wiring_length_validation():
+    try:
+        Rotor("ABC", "Q")
+    except ValueError as exc:
+        assert "26 characters" in str(exc)
+    else:
+        assert False, "Expected ValueError for wrong wiring length"
+
+
+def test_rotor_encode_forward_non_letter():
+    rotor = Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", "Q")
+    assert rotor.encode_forward("1") == "1"
+    assert rotor.encode_forward(" ") == " "
+
+
+def test_rotor_encode_backward_non_letter():
+    rotor = Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", "Q")
+    assert rotor.encode_backward("1") == "1"
+    assert rotor.encode_backward(" ") == " "
+
+
+def test_rotor_step_no_notch():
+    rotor = Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", None, position="A")
+    assert rotor.step() is False
+    assert rotor.position == "B"
+
+
+def test_rotor_at_notch_no_notch():
+    rotor = Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", None)
+    assert rotor.at_notch() is False

@@ -5,6 +5,7 @@ from enigma.core.machine import EnigmaMachine
 from enigma.data.rotors import ROTOR_I, ROTOR_II, ROTOR_III
 from enigma.data.reflectors import REFLECTOR_B
 
+
 def test_single_letter_encoding():
     plugboard = Plugboard([])
 
@@ -32,6 +33,7 @@ def test_right_rotor_steps_on_each_keypress():
 
     machine.encode_letter("A")
     assert rotor_r.position == "B"
+
 
 def test_enigma_stepping_rules():
     """
@@ -84,10 +86,11 @@ def test_enigma_stepping_rules():
             # 4. Left rotor must also step in this case
             assert rotor_l.position != prev_l
 
+
 def test_forced_double_step():
     """
     Forces a double‑step scenario by positioning the middle rotor on its own notch.
-    
+
     According to real Enigma mechanics:
     - If the MIDDLE rotor is at its notch, it MUST step.
     - When the middle rotor steps due to its own notch, the LEFT rotor MUST also step.
@@ -133,3 +136,17 @@ def test_forced_double_step():
     idx_l = alphabet.index(prev_l)
     expected_left = alphabet[(idx_l + 1) % 26]
     assert rotor_l.position == expected_left
+
+
+def test_encode_non_letter():
+    plugboard = Plugboard([])
+    rotor_r = Rotor(*ROTOR_I, ring_setting=0, position="A")
+    rotor_m = Rotor(*ROTOR_II, ring_setting=0, position="A")
+    rotor_l = Rotor(*ROTOR_III, ring_setting=0, position="A")
+    reflector = Reflector(REFLECTOR_B)
+    machine = EnigmaMachine([rotor_r, rotor_m, rotor_l], reflector, plugboard)
+
+    # Test with non-letter characters
+    assert machine.encode_letter("1") == "1"
+    assert machine.encode_letter(" ") == " "
+    assert machine.encode_letter("@") == "@"
