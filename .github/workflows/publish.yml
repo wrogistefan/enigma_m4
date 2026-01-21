@@ -29,12 +29,11 @@ jobs:
 
       - name: Verify build artifacts exist
         run: |
-          test -f dist/*.tar.gz
-          test -f dist/*.whl
+          ls dist/*.tar.gz dist/*.whl
 
       - name: Publish to PyPI
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         run: |
-          twine upload dist/*
+          twine upload --non-interactive --skip-existing dist/*

@@ -31,12 +31,15 @@ jobs:
           pip install .[dev]
 
       - name: Ruff lint
+        if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12'
         run: ruff check .
 
       - name: Ruff format check
+        if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12'
         run: ruff format --check .
 
       - name: Mypy type checking
+        if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12'
         run: mypy src/enigma
 
       - name: Run tests with coverage
