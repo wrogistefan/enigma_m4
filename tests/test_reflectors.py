@@ -1,4 +1,3 @@
-
 from enigma.core.reflector import Reflector
 from enigma.data.reflectors import (
     REFLECTOR_A,
@@ -15,7 +14,6 @@ ALL_REFLECTORS = [
     (REFLECTOR_B_THIN, False),
     (REFLECTOR_C_THIN, False),
 ]
-
 
 
 def test_all_reflectors_initialize():
