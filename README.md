@@ -131,7 +131,7 @@ enigma_m4/
     ├── test_reflectors.py
     ├── test_integration.py
     ├── test_integration_m4.py
-    ├── test_intergation_m4_historical.py
+    ├── test_integration_m4_historical.py
     └── __init__.py
 ```
 

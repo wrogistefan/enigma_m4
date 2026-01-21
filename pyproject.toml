@@ -3,7 +3,7 @@ name = "enigma-m4"
 version = "0.4.0"
 description = "A modern, fully tested Enigma machine simulator in Python."
 readme = "README.md"
-license = "LICENSE"
+license = { file = "LICENSE" }
 authors = [
     { name = "Łukasz Perek" }
 ]
